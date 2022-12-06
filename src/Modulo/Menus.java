@@ -3,23 +3,27 @@ package Modulo;
 import java.util.Scanner;
 
 public class Menus {
-    public Consulta consulta;
     public Utils utils=new Utils();
-    static int numero=9999;
-
-    Consulta pacientes[]=new Consulta[numero];
+    Consulta pacientes[]=new Consulta[9999];
     public boolean Index(){
+utils.fechaActual();
+        for(int i=0;i<6;i++){//generar pacientes de consulta aleatorios
+            pacientes[i]=new Consulta();
+        }
         boolean End=false;
-        for(;End==false;){
-            System.out.println("Elije una opcion");
+        while(!End){
+            System.out.println(utils.amarillo+"Elije una opcion");
             System.out.println("Consulta- Historial de Pacientes de consulta");
             System.out.println("Hospitalizados- Historial Hospitalizados");
-            System.out.println("Salir- Salir del programa");
-            String opcion=utils.leeComando("Introduce opcion");
+            System.out.println("Salir- Salir del programa"+utils.b);
+            String opcion=utils.leeComando(utils.magenta+"Introduce opcion"+utils.b);
             if(opcion.equals("CONSULTA")){
                 Consulta();
             }else if(opcion.equals("HOSPITALIZADOS")){
-
+                Hospital hospital=new Hospital();
+                for (boolean atras=false;!false;){
+                    atras=hospital.main(atras);
+                }
             }else if(opcion.equals("SALIR")){
                 End=true;
             }
@@ -27,22 +31,87 @@ public class Menus {
         return End;
     }
     public void Consulta(){
-        for(boolean Atras=false;Atras==false;) {
-            System.out.println("Menu Consulta: Elije una opcion");
+        for(boolean Atras=false;!Atras;) {
+            System.out.println(utils.amarillo+"Menu Consulta: Elije una opcion");
             System.out.println("Crear- Crearas un nuevo de paciente o grupo de pacientes");
             System.out.println("Eliminar- Eliminaras un paciente o grupo de Pacientes");
             System.out.println("Modificar- Modificaras un paciente o grupo de pacientes");
             System.out.println("Buscar- Bucaras en la base de datos un paciente o grupo de pacientes");
-            System.out.println("Atras- Volveras al menu anterior");
-            String opcion=utils.leeComando("Introduce opcion");
+            System.out.println("All- Mostrara todos los pacientes registrados");
+            System.out.println("Atras- Volveras al menu anterior"+utils.b);
+            String opcion=utils.leeComando(utils.magenta+"Introduce opcion"+utils.b);
             if (opcion.equals("CREAR")) {
                 CPC();
             } else if (opcion.equals("ELIMINAR")) {
 
+                String dni=utils.leeDNI("Introduce el DNI del paciente a"+utils.rojo+ " eliminar");
+                boolean Encontrado=false;
+                boolean confirmar=false;
+                for(int i=0;i<pacientes.length && !confirmar;i++){
+                    if(pacientes[i]!=null){
+                        Encontrado=pacientes[i].BuscarDNI(dni,Encontrado);
+                        if(Encontrado){
+                            confirmar=utils.confirmar("Desea realmente eliminar el paciente con el dni "+dni);
+                            if(confirmar){
+                                pacientes[i]=null;
+                            }else{
+                                confirmar=true;
+                            }
+                        }
+                    }
+                }
+
             } else if (opcion.equals("MODIFICAR")) {
+/**
+ * Comprobara si existe el Paciente con el dni introducido. Si existe se podra modificar. Si no no sera posible modificarlo.
+ * Este metodo enviara al metodo buscar del objeto Consulta el dni que se desea buscar. si se encuentra se enviara al metodo
+ * Modificar de Consulta el dni del paciente a modificar y se volveran a reescribir los datos
+ */
+                String dni=utils.leeDNI("Introduce DNI a buscar para modificar Paciente");
+                boolean Encontrado=false;
+                int i=0;
+                for(;i<pacientes.length && !Encontrado;i++){
+                    if(pacientes[i]!=null){
+                        Encontrado=pacientes[i].BuscarDNI(dni,Encontrado);
+                        if(Encontrado){
+                            pacientes[i].Modificar();
+                            System.out.println(utils.getVerde()+"Se modificaron los datos del paciente "+pacientes[i].getNombre()+" correctamente"+utils.b);
+                        }
+                    }
+                }
+                if (!Encontrado){
+                    System.out.println(utils.rojo+"No se encontro el paciente con el DNI: "+dni+utils.b);
+                }
 
             } else if (opcion.equals("BUSCAR")) {
+
                 String dni=utils.leeDNI("Introduce DNI a buscar");
+                boolean Encontrado=false;
+                for(int i=0;i<pacientes.length && !Encontrado;i++){
+                    if(pacientes[i]!=null){
+                        Encontrado=pacientes[i].BuscarDNI(dni,Encontrado);
+                        if(Encontrado){
+                            pacientes[i].toString(i);
+                        }
+                    }
+                }
+                if (!Encontrado){
+                    System.out.println(utils.rojo+"No se encontro. Consulte un DNI de paciente registrado"+utils.b);
+                }
+
+            } else if (opcion.equals("ALL")) {
+                boolean Encontrado=false;
+                for(int i=0;i<pacientes.length;i++){
+                    if(pacientes[i]!=null){
+                        pacientes[i].toString(i);
+                        if(!Encontrado){
+                            Encontrado=true;
+                        }
+                    }
+                }
+                if(!Encontrado){
+                    System.out.println(utils.rojo+"No existe registro de pacientes"+utils.b);
+                }
 
             } else if(opcion.equals("ATRAS")){
                 Atras=true;
@@ -52,22 +121,26 @@ public class Menus {
 
     public void CPC(){ //Menu creacion paciente de consulta
         Scanner sc=new Scanner(System.in);
-        for(boolean Atras=false;Atras==false;){
-            System.out.println("Menu Crear Paciente");
+        for(boolean Atras=false;!Atras;){
+            System.out.println(utils.amarillo+"Menu Crear Paciente");
             System.out.println("Nuevo paciente- Creara un solo paciente");
             System.out.println("Resetear- Reseteara la base de datos de pacientes para introducir nuevos");
-            System.out.println("Atras- Volveras al menu anterior");
-            String opcion=utils.leeComando("Introduce opcion");
+            System.out.println("Atras- Volveras al menu anterior"+utils.b);
+            String opcion=utils.leeComando(utils.magenta+"Introduce opcion"+utils.b);
             if (opcion.equals("NUEVO PACIENTE")) {
 
                     String Dni = utils.leeDNI("Introduce DNI");
-                    System.out.println("Introduce Nombre del paciente");
-                    String Nombre = sc.nextLine();
-                    String Nacimiento = utils.leeNacimiento();
+                    String Nombre = utils.leeNombre("Introduce nombre del paciente");
+                    String Apellidos=utils.leeNombre("Introduce Apellidos del paciente");
+                    String Nacimiento = utils.leeNacimiento("Introduce la fecha de Nacimiento YYYY/MM/DD");
+                    String FechaCita="";   //utils.leeCita();
+                    String Descripcion= utils.leeNombre("Introduce Descripcion del paciente");
+                    String Consulta= "";   //utils.leeConsulta();
+                    String InformeMedico= utils.leeNombre("Introduce informe del medico");
                     boolean Encontrado=false;
-                    for(int i=0;i<pacientes.length && Encontrado==false;i++){ //buscara un espacio vacio en memoria donde almacenar el nuevo paciente
+                    for(int i=0;i<pacientes.length && !Encontrado;i++){ //buscara un espacio vacio en memoria donde almacenar el nuevo paciente
                         if(pacientes[i]==null){
-                            pacientes[i]=new Consulta(Dni,Nombre,Nacimiento);
+                            pacientes[i]=new Consulta(Dni,Nombre,Apellidos,Nacimiento,FechaCita,Descripcion,Consulta,InformeMedico);
                             Encontrado=true;
                         }
                     }
@@ -80,8 +153,8 @@ public class Menus {
                     String Dni = utils.leeDNI("Introduce DNI");
                     System.out.println("Introduce Nombre del paciente");
                     String Nombre = sc.nextLine();
-                    String Nacimiento = utils.leeNacimiento();
-                    paciente[i]=new Consulta(Dni,Nombre,Nacimiento);
+                    String Nacimiento = utils.leeNacimiento("Introduce la fecha de Nacimiento YYYY/MM/DD");
+                    //paciente[i]=new Consulta(Dni,Nombre,Nacimiento);
 
                 }
 
