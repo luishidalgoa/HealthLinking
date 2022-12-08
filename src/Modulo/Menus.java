@@ -1,5 +1,6 @@
 package Modulo;
 
+import javax.print.Doc;
 import java.util.Scanner;
 
 public class Menus {
@@ -115,6 +116,24 @@ utils.fechaActual();
 
             } else if(opcion.equals("ATRAS")){
                 Atras=true;
+            }else if(opcion.equals("NUEVOS")){  //Comando oculto genera 10 pacientes nuevos
+                int[]result=new int[10];
+                int reiterar=0;
+                for(int i=0;i<10;i++){
+                    boolean Encontrado=false;
+                    for(int e=0;e<this.pacientes.length && Encontrado==false;e++){
+                        if(this.pacientes[e]==null){
+                            result[i]=e+reiterar;
+                            Encontrado=true;
+                            reiterar++;
+                        }
+                    }
+                    if(i==9){
+                        for(int c=0;c<10;c++){//generar pacientes de consulta aleatorios
+                            this.pacientes[result[c]]= new Consulta();
+                        }
+                    }
+                }
             }
         }
     }
@@ -131,16 +150,15 @@ utils.fechaActual();
 
                     String Dni = utils.leeDNI("Introduce DNI");
                     String Nombre = utils.leeNombre("Introduce nombre del paciente");
-                    String Apellidos=utils.leeNombre("Introduce Apellidos del paciente");
-                    String Nacimiento = utils.leeNacimiento("Introduce la fecha de Nacimiento YYYY/MM/DD");
-                    String FechaCita="";   //utils.leeCita();
+                    String Apellidos=utils.leeApellidos("Introduce Apellidos del paciente");
+                    String Nacimiento = utils.leeFecha("Introduce la fecha de Nacimiento YYYY/MM/DD");
                     String Descripcion= utils.leeNombre("Introduce Descripcion del paciente");
-                    String Consulta= "";   //utils.leeConsulta();
-                    String InformeMedico= utils.leeNombre("Introduce informe del medico");
+                    int Consulta= utils.leeConsulta("Introduce el numero de la consulta asignada a la cita medica");
+                    String InformeMedico= utils.leeNombre("Introduce informe del medico (OPCIONAL)");
                     boolean Encontrado=false;
                     for(int i=0;i<pacientes.length && !Encontrado;i++){ //buscara un espacio vacio en memoria donde almacenar el nuevo paciente
                         if(pacientes[i]==null){
-                            pacientes[i]=new Consulta(Dni,Nombre,Apellidos,Nacimiento,FechaCita,Descripcion,Consulta,InformeMedico);
+                            pacientes[i]=new Consulta(Dni,Nombre,Apellidos,Nacimiento,Descripcion,Consulta,InformeMedico,i);
                             Encontrado=true;
                         }
                     }
@@ -153,7 +171,7 @@ utils.fechaActual();
                     String Dni = utils.leeDNI("Introduce DNI");
                     System.out.println("Introduce Nombre del paciente");
                     String Nombre = sc.nextLine();
-                    String Nacimiento = utils.leeNacimiento("Introduce la fecha de Nacimiento YYYY/MM/DD");
+                    String Nacimiento = utils.leeFecha("Introduce la fecha de Nacimiento YYYY/MM/DD");
                     //paciente[i]=new Consulta(Dni,Nombre,Nacimiento);
 
                 }
@@ -166,3 +184,5 @@ utils.fechaActual();
         }
     }
 }
+//Terminar grupo de pacientes
+//Terminar la generacion automatica de datos
