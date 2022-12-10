@@ -42,7 +42,7 @@ public class Controlador {
                     if (pacientes[i] != null) {
                         Encontrado = pacientes[i].BuscarDNI(dni, Encontrado);
                         if (Encontrado) {
-                            pacientes[i].Modificar();
+                            pacientes[i].Modificar(Consulta);
                             System.out.println(Utils.verde + "Se modificaron los datos del paciente " + pacientes[i].getNombre() + " correctamente" + Utils.b);
                         }
                     }
@@ -122,7 +122,7 @@ public class Controlador {
                         String Doctor=Consulta[consulta].getDoctor(consulta);
                         String FechaCita=Consulta[consulta].getCita(consulta,i);
                         String HoraCita=Consulta[consulta].getHora(i);
-                        pacientes[i]=new Paciente(Dni,Nombre,Apellidos,Nacimiento,Descripcion,consulta,InformeMedico,Doctor,FechaCita,HoraCita);
+                        pacientes[i]=new Paciente(Dni,Nombre,Apellidos,Nacimiento,Descripcion,consulta,InformeMedico,Doctor,FechaCita,HoraCita,i);
                         Encontrado=true;
                     }
                 }
@@ -141,7 +141,7 @@ public class Controlador {
                     String Doctor=Consulta[consulta].getDoctor(consulta);
                     String FechaCita=Consulta[consulta].getCita(consulta,i);
                     String HoraCita=Consulta[consulta].getHora(i);
-                    pacientes[i]=new Paciente(Dni,Nombre,Apellidos,Nacimiento,Descripcion,consulta,InformeMedico,Doctor,FechaCita,HoraCita);
+                    pacientes[i]=new Paciente(Dni,Nombre,Apellidos,Nacimiento,Descripcion,consulta,InformeMedico,Doctor,FechaCita,HoraCita,i);
 
                 }
                 break;
@@ -152,3 +152,4 @@ public class Controlador {
         return Atras;
     }
 }
+//el programa peta si en leeFecha introduces un caracter

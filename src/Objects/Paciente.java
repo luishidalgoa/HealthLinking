@@ -11,11 +11,12 @@ public class Paciente {
     private String Descripcion;
     private String Cita;
     private String Hora;
-     //cada consulta debe ser independiente para mostrar el total de citas concretadas
     private int Sala; //En realidad deberia llamarse Consulta ya que almacena la consulta de la cita medica
     private String InformeMedico;
     private int Edad;
     private String Doctor;
+    //Este atributo actua como id del paciente. y lo utilizamos para asociarlo con el array de citas del objeto Consultas
+    private int Identificador;
 
     /**
      *
@@ -30,7 +31,7 @@ public class Paciente {
      * @param FechaCita
      * @param HoraCita
      */
-    public Paciente(String DNI, String Nombre, String Apellidos, String Nacimiento, String Descripcion, int Consulta, String InformeMedico, String Doctor, String FechaCita, String HoraCita   ){//constructor que recibira los valores del nuevo Paciente
+    public Paciente(String DNI, String Nombre, String Apellidos, String Nacimiento, String Descripcion, int Consulta, String InformeMedico, String Doctor, String FechaCita, String HoraCita,int identificador  ){//constructor que recibira los valores del nuevo Paciente
         this.DNI=DNI;
         this.Nombre=Nombre;
         this.Apellidos=Apellidos;
@@ -42,9 +43,10 @@ public class Paciente {
         this.Hora=HoraCita;
         this.Doctor=Doctor;
         this.Sala=Consulta;
+        this.Identificador=identificador;
         System.out.println(Utils.verde+"Se creo correctamente el paciente"+Utils.b);
     }
-
+//metodo que recoje todos los atributos o vaores del paciente y los imrpime en pantalla
     public void toString(int i){
         System.out.println(Utils.amarillo+"                           Datos personales"+Utils.b);
         System.out.println(Utils.verde+" Paciente nº "+i+" DNI: "+this.DNI+" Nombre: "+this.Nombre+" Apellidos: "+this.Apellidos+" Nacimiento: "+this.Nacimiento+" Edad: "+this.Edad);
@@ -53,6 +55,7 @@ public class Paciente {
         System.out.println(Utils.verde+" FechaCita: "+this.Cita+" - "+this.Hora+" Consulta: "+this.Sala+" Profesional Medico: "+this.Doctor);
         System.out.println(" Informe medico: "+this.InformeMedico+Utils.b);
     }
+    //Metodo que recoje el dni introducido por
     public boolean BuscarDNI(String dni,boolean Encontrado){
 
         if(getDNI().equals(dni)){
@@ -61,12 +64,18 @@ public class Paciente {
         return Encontrado;
 
     }
-    public void Modificar(){
+    //Metodo que cuando es invocado. Actualizara los datos del paciente
+    public void Modificar(Consulta[] Consulta){
         this.DNI=Read.leeDNI("Introduce nuevo DNI del paciente");
         System.out.println("Introduce nuevo nombre del paciente");
         this.Nombre=Read.leeNombre("Introduce el nombre del paciente");
+        this.Apellidos=Read.leeApellidos("Inroduce nuevos apellidos");
         this.Nacimiento= Read.leeFecha("Introduce la fecha de Nacimiento YYYY/MM/DD");
-
+        this.Descripcion=Read.leeNombre("Introduce nueva descripcion del paciente");
+        this.Sala=Read.leeConsulta("Introduce numero de la consulta asignada a la cita medica");
+        this.Doctor=Consulta[this.Sala].getDoctor(this.Sala);
+        this.Cita=Consulta[Sala].getCita(this.Sala,Identificador);
+        this.Hora=Consulta[Sala].getHora(Identificador);
     }
 
     /**

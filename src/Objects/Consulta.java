@@ -8,8 +8,10 @@ import utils.Utils;
  */
 public class Consulta {
     private String Doctor;
-    private String[]Citas=new String[9999]; // CITAS Y HORA ESTAN ASOCIADOS POR EL MISMO identificador
+    private String[]Citas=new String[9999]; // CITAS Y HORA ESTAN ASOCIADOS POR EL MISMO identificador o dicho de otro modo cada identificador es un paciente
     private String[]Hora=new String[9999];
+    private String Fmayor=""; //guardara la fecha mayor
+    private String Hmayor=""; //guardara la hora mayor
 
     /**
      * Constructor que generara las 3 consultas que se requieren en el programa
@@ -33,16 +35,13 @@ public class Consulta {
      * @param Consulta
      * @return
      */
-    public void leeCita(String msn,int Consulta,int identificador){
-        Utils utils=new Utils();
+    public void leeCita(int Consulta,int identificador){
         System.out.println("Fechas ya programadas de la consulta "+ Consulta);
-        String Fmayor=""; //guardara la fecha mayor
-        String Hmayor=""; //guardara la hora mayor
         int Mayor=0;
 
         for(int i=0;i<this.Citas.length;i++){
             if(this.Hora[i]!=null || this.Citas[i]!=null){
-                if(this.Citas[i].compareTo(Fmayor)>0 && this.Hora[i].compareTo(Hmayor)>0){
+                if(this.Citas[i].compareTo(Fmayor)>=0 && this.Hora[i].compareTo(Hmayor)>0){
                     Fmayor=this.Citas[i];
                     Hmayor=this.Hora[i];
                     Mayor=i;
@@ -53,10 +52,10 @@ public class Consulta {
         String Fecha=null;String hora=null;
         for(boolean isCorrect=false;!isCorrect;){
             if(this.Citas[Mayor]==null || this.Hora[Mayor]==null){
-                System.out.println("No hay fechas concretadas en la consulta " + Consulta + " recomendamos la cita en la fecha "+ utils.fechaActual());
+                System.out.println("No hay fechas concretadas en la consulta " + Consulta + " recomendamos la cita en la fecha "+ Utils.fechaActual());
                 Fecha= Read.leeFecha("Introduce Fecha de la cita YYYY/MM/dd");
                 hora=Read.leeHora("Introduce la Hora de la consulta HH:MM    (nota: debe tener un intervalo de 30 min)");
-                if(Fecha.compareTo(utils.fechaActual())>=0 && hora.compareTo(Hmayor)>2.9){
+                if(Fecha.compareTo(Utils.fechaActual())>=0 && hora.compareTo(Hmayor)>2.9){
                     this.Citas[identificador]=Fecha;
                     this.Hora[identificador]=hora;
                     isCorrect=true;
@@ -82,7 +81,7 @@ public class Consulta {
     }
 
     public String getCita(int Consulta,int identificador){
-        leeCita("Introduce fecha de la cita YYYY/MM/dd",Consulta,identificador);
+        leeCita(Consulta,identificador);
         return this.Citas[identificador];
     }
     public String getHora(int i){return this.Hora[i];}

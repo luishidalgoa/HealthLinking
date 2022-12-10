@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Read {
     static Scanner sc=new Scanner(System.in);
+    //Metodo que leera un string
     public static String leeNombre(String msn){
         String nombre=null;
         try{
@@ -15,6 +16,8 @@ public class Read {
         }
         return nombre;
     }
+    //Metodo que leera un dni a partir de que cumpla las requisitos de un dni.
+    // si no volvera a pedirlo. Este metodo es capaz de calcular la letra del dni si el usuario no lo introduce
     public static String leeDNI(String msn){
         String dni;
         boolean isCorrect=true;
@@ -56,21 +59,26 @@ public class Read {
 
         return dni;
     }
+    //Metodo que leera la fecha en formato YYYY/MM/dd
     public static String leeFecha(String msn){
         String fecha = null;
-        for(boolean isCorrect=false;!isCorrect;){
-            System.out.println(msn);
-            fecha=sc.nextLine();
-            if(fecha.length()<10){
-                System.out.println(Utils.rojo+"introduce una longitud correcta"+Utils.b);
-            }else if(fecha.charAt(0)<'3' && fecha.charAt(0)>'0' && fecha.charAt(4)=='/' && fecha.charAt(7)=='/'){
-                isCorrect=true;
-            }else{
-                System.out.println(Utils.rojo+"introduce una fecha correcta"+Utils.b);
+        try{
+            fecha=null;
+            for(boolean isCorrect=false;!isCorrect;){
+                System.out.println(msn);
+                fecha=sc.nextLine();
+                if(fecha.length()<10){
+                    System.out.println(Utils.rojo+"introduce una longitud correcta"+Utils.b);
+                }else if(fecha.charAt(0)<'3' && fecha.charAt(0)>'0' && fecha.charAt(4)=='/' && fecha.charAt(7)=='/'){
+                    isCorrect=true;
+                }else{
+                    System.out.println(Utils.rojo+"introduce una fecha correcta"+Utils.b);
+                }
             }
-        }
+        }catch (Exception e){}
         return fecha;
     }
+    //Metodo que comprobara que la hora escrita por el usuario este en el formato correcto : HH:mm
     public static String leeHora(String msn){
         String hora="";
         for(boolean isCorrect=false;!isCorrect;){
@@ -101,7 +109,7 @@ public class Read {
         }
         return hora;
     }
-
+    //Metodo que lee un numero entero
     public static int leeEntero(String msn){
         int numero=0;
         try{
@@ -115,42 +123,49 @@ public class Read {
     }
     public static int leeConsulta(String msn){
         int numero=0;
-        boolean isCorrect=false;
-        do{
+        try{
             numero=0;
-            try {
-                System.out.println(msn);
-                numero = sc.nextInt();
-                if (numero >= 0 && numero < 3) {
-                    isCorrect = true;
-                } else {
-                    System.out.println(Utils.rojo+"Esa no es una consulta correcta. Existen hasta 5 consultas"+Utils.b);
+            boolean isCorrect=false;
+            do{
+                numero=0;
+                try {
+                    System.out.println(msn);
+                    numero = sc.nextInt();
+                    if (numero >= 0 && numero < 3) {
+                        isCorrect = true;
+                    } else {
+                        System.out.println(Utils.rojo+"Esa no es una consulta correcta. Existen hasta 5 consultas"+Utils.b);
+                    }
+                } catch (Exception e) {
+                    System.out.println(Utils.rojo+"Introduce un numero valido"+Utils.b);
+                    sc.nextLine();
                 }
-            } catch (Exception e) {
-                System.out.println(Utils.rojo+"Introduce un numero valido"+Utils.b);
-                sc.nextLine();
-            }
-        }while(!isCorrect);
-        sc.nextLine();
+            }while(!isCorrect);
+            sc.nextLine();
+        }catch (Exception e){}
         return numero;
     }
 
     public static String leeApellidos(String msn){
         String Apellidos="";
-        for(boolean isCorrect=false;!isCorrect;){
-            System.out.println(msn);
-            Apellidos=sc.nextLine();
-            for(int i=0;i<Apellidos.length() && !isCorrect;i++){
-                char caracter=Apellidos.charAt(i);
-                if(caracter==' '){
-                    isCorrect=true;
-                }
+        try{
+            Apellidos="";
+            for(boolean isCorrect=false;!isCorrect;){
+                System.out.println(msn);
+                Apellidos=sc.nextLine();
+                for(int i=0;i<Apellidos.length() && !isCorrect;i++){
+                    char caracter=Apellidos.charAt(i);
+                    if(caracter==' '){
+                        isCorrect=true;
+                    }
 
+                }
+                if(!isCorrect){
+                    System.out.println(Utils.rojo+"Debes introducir los dos apellidos"+Utils.b);
+                }
             }
-            if(!isCorrect){
-                System.out.println(Utils.rojo+"Debes introducir los dos apellidos"+Utils.b);
-            }
-        }
+        }catch (Exception e){}
+
 
         return Apellidos;
     }
