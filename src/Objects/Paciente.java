@@ -55,7 +55,7 @@ public class Paciente {
         System.out.println(Utils.verde+" FechaCita: "+this.Cita+" - "+this.Hora+" Consulta: "+this.Sala+" Profesional Medico: "+this.Doctor);
         System.out.println(" Informe medico: "+this.InformeMedico+Utils.b);
     }
-    //Metodo que recoje el dni introducido por
+    //Metodo que recoje el dni introducido por el usuario y lo comparara con el dni de cada paciente
     public boolean BuscarDNI(String dni,boolean Encontrado){
 
         if(getDNI().equals(dni)){
@@ -79,8 +79,8 @@ public class Paciente {
     }
 
     /**
-     * metodo que generara una base de datos automatica nada mas iniciar el programa. genera cadenas de caracteres aleatorios (investigar)
-     * @return
+     * metodo que generara automaticamente un paciente. Genera cadenas de caracteres aleatorios (investigar)
+     * @param obj recive el objeto consulta en la cual se atendera al paciente autogenerado
      */
     public Paciente(Consulta[] obj){ //Constructor generador random de Pacientes automaticos
         this.DNI="";

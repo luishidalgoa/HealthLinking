@@ -13,6 +13,11 @@ public class Menus {
     Paciente pacientes[]=new Paciente[9999];
     Objects.Consulta Consulta[]=new Consulta[6];
 
+    /**
+     * Metodo que se ejecutara 1 vez durante toda la ejecucion del programa.
+     * Este metodo genera las consultas totales del centro de salud e invoca la generacion automatica de pacientes
+     * @return
+     */
     public boolean Execute(){
         this.Consulta[0]=new Consulta(0,Utils.fechaActual(),"08:00");
         this.Consulta[1]=new Consulta(0,Utils.fechaActual(),"08:00");
@@ -26,6 +31,11 @@ public class Menus {
         boolean End=Index();
         return End;
     }
+
+    /**
+     * 
+     * @return
+     */
     public boolean Index(){
         boolean End=false;
         while(!End){
@@ -52,6 +62,11 @@ public class Menus {
         return End;
     }
 
+    /**
+     *
+     * @param pacientes
+     * @param Consulta
+     */
     public static void CPC(Paciente[]pacientes,Consulta[]Consulta){ //Menu creacion paciente de consulta
         for(boolean Atras=false;!Atras;){
             Imprimir.P(Utils.rojo+":-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=:");

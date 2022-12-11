@@ -5,6 +5,13 @@ import utils.Utils;
 import Menu.*;
 
 public class Controlador {
+    /**
+     * Metodo de seleccion de opciones en forma de switch. Este menu de opciones esta vinculado con el menu Menu
+     * @param opcion recive el numero de la opcion seleccionada por el usuario
+     * @param pacientes recive el objeto con todos los pacientes que hereda del objeto Menus. (Todos los pacientes han de memorizarse en menus para evitar que los pacientes se borren)
+     * @param Consulta El motivo es el mismo que el objeto Pacientes. Pero en este caso recive todas las consultas creadas.
+     * @return
+     */
     public static boolean MenuPrincipal(int opcion,Paciente[]pacientes,Consulta[]Consulta){
         boolean End=false;
         switch (opcion) {
@@ -105,6 +112,14 @@ public class Controlador {
         }
         return End;
     }
+
+    /**
+     * Metodo de seleccion de opciones en forma de switch. Este menu de opciones esta vinculado con el menu Pacientes
+     * @param opcion recive el numero de la opcion seleccionada por el usuario
+     * @param pacientes recive el objeto con todos los pacientes que hereda del objeto Menus. (Todos los pacientes han de memorizarse en menus para evitar que los pacientes se borren)
+     * @param Consulta El motivo es el mismo que el objeto Pacientes. Pero en este caso recive todas las consultas creadas.
+     * @return
+     */
     public static boolean MenuPacientes(int opcion,Paciente[]pacientes,Consulta[]Consulta){
         boolean Atras=false;
         switch (opcion){

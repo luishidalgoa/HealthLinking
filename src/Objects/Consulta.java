@@ -24,6 +24,7 @@ public class Consulta {
         this.Citas[0]=Fecha;
         this.Hora[0]=Hora;
     }
+    //Metodo el cual segun la consulta elegida para el paciente. Calcula cual es el doctor que atendera al paciente en esa misma consulta
     public String esDoctor(int Consulta){
         String[]Doctor={"Jose Hidalgo Pedraza","Dora Pintor Requena","José Ángel del Gordillo","Maxi Pedrosa-Murillo","Edmundo Llorente Cisneros","Teodoro Mayoral Cañizares","Jerónimo Crespi","Ariel Rojas Llopis","Alba Pintor Sanmartín","Gilberto Ribera Anguita","Bautista del Cerdá"};
         this.Doctor=Doctor[Consulta];
@@ -31,9 +32,9 @@ public class Consulta {
     }
 
     /**
-     * Metodo que revisara que la fecha seleccionada y hora no este registrada en la base de datos
-     * @param Consulta
-     * @return
+     *Metodo que compara todas las citas programadas para posteriormente saber cual es la ultima y pedirle al usuario que introduzca un cita en una fecha y hora no fijada por otras citas
+     * @param Consulta recibe el numero de consulta establecido por el usuario
+     * @param identificador esta valor identifica a la posicion del array de la fecha y hora de la cita con el paciente correspondiente
      */
     public void leeCita(int Consulta,int identificador){
         System.out.println("Fechas ya programadas de la consulta "+ Consulta);
