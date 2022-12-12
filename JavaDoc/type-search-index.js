@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"Objects","l":"Consulta"},{"p":"controlador","l":"Controlador"},{"p":"utils","l":"DNI"},{"p":"<Unnamed>","l":"Ejecutable"},{"p":"utils","l":"Imprimir"},{"p":"Menu","l":"Menus"},{"p":"Objects","l":"Paciente"},{"p":"utils","l":"Read"},{"p":"utils","l":"Utils"}];updateSearchResults();
